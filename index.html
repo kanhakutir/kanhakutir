@@ -156,21 +156,63 @@
                 <p><i class="fa-solid fa-location-dot"></i> <strong>Address:</strong> 115 kanchan vihar colony near scheme no. 114 part 1 dewas naka, Indore, M.P.</p>
             </div>
 
-            <!-- NO EXTERNAL APPS FORM: Change 'yourhostelemail@gmail.com' to your real email later -->
-            <form action="#" method="Post" onsubmit="alert('Thank you! Your inquiry has been received.'); return false;".
-                <input type="text" name="Name" placeholder="Your Name" required>
-                <input type="tel" name="Phone" placeholder="Phone Number" required>
-                <select name="Sharing Option" required>
-                    <option value="" disabled selected>Preferred Sharing Option</option>
-                    <option value="single">Single Room</option>
-                    <option value="double">Double Sharing</option>
-                </select>
-                <button type="submit" class="submit-btn">Send Booking Request</button>
-            </form>
+            <div class="contact-card">
+  <h3>Send a Booking Inquiry</h3>
+  
+  <!-- Notice we don't use action="mailto:" in the form tag anymore, which stops the browser warning -->
+  <form onsubmit="sendEmail(event)">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" placeholder="Enter your full name" required>
 
-        </div>
-    </section>
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" placeholder="Enter your phone number" required>
 
+    <label for="room-type">Sharing Preference</label>
+    <select id="room-type" required>
+      <option value="" disabled selected>Select sharing type...</option>
+      <option value="Single Sharing">Single Sharing</option>
+      <option value="Double Sharing">Double Sharing</option>
+      <option value="Triple Sharing">Triple Sharing</option>
+    </select>
+
+    <label for="date">Expected Move-in Date</label>
+    <input type="date" id="date" required>
+
+    <button type="submit" class="submit-btn">Send Inquiry via Email</button>
+  </form>
+</div>
+
+<script>
+function sendEmail(event) {
+  event.preventDefault();
+  
+  // 1. Get the values the user typed in
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const roomType = document.getElementById('room-type').value;
+  const date = document.getElementById('date').value;
+  
+  // 2. YOUR EMAIL ADDRESS: Replace this with your actual hostel Gmail address
+  const myEmail = "kanhakutir115@gmail.com"; 
+  
+  // 3. Set a clean subject line
+  const subject = encodeURIComponent(`New Booking Inquiry - Kanha Kutir (${name})`);
+  
+  // 4. Craft the body text of the email cleanly
+  const body = encodeURIComponent(
+    `Hello Kanha Kutir Management,\n\n` +
+    `You have received a new booking inquiry from your website:\n\n` +
+    `• Name: ${name}\n` +
+    `• Phone Number: ${phone}\n` +
+    `• Sharing Preference: ${roomType}\n` +
+    `• Expected Move-in Date: ${date}\n\n` +
+    `Please respond to this guest as soon as possible.`
+  );
+  
+  // 5. Open the user's default email app securely
+  window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
+}
+</script>
     <footer>
         <p>&copy; 2026 Kanha Kutir Girls Hostel, Indore. All Rights Reserved.</p>
     </footer>

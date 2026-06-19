@@ -297,3 +297,70 @@ footer {
     .split-image { min-height: 300px; }
     .section { padding: 60px 5%; }
 }
+
+/* 🎨 Kanha Kutir FAQ Design Styles */
+.faq-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.faq-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.faq-item {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px 20px;
+  transition: all 0.3s ease;
+}
+
+.faq-item[open] {
+  background: #fff;
+  border-color: #ff4a57; /* Accent color - change this to match your hostel theme */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.faq-question {
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+  list-style: none; /* Hides default browser arrow */
+  position: relative;
+  padding-right: 25px;
+  font-size: 1.1rem;
+}
+
+/* Custom modern arrow icon on the right side */
+.faq-question::after {
+  content: '➔';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.faq-item[open] .faq-question::after {
+  transform: translateY(-50%) rotate(-90deg);
+  color: #ff4a57;
+}
+
+.faq-answer {
+  margin-top: 12px;
+  line-height: 1.6;
+  color: #555;
+  font-size: 1rem;
+}
+
+.faq-answer p {
+  margin: 0;
+}

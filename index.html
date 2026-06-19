@@ -156,54 +156,72 @@
                 <p><i class="fa-solid fa-location-dot"></i> <strong>Address:</strong> 115 kanchan vihar colony near scheme no. 114 part 1 dewas naka, Indore, M.P.</p>
             </div>
 
-            <!-- REVIEWS SECTION START -->
-<section class="reviews-section" style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: Arial, sans-serif;">
-  <h2 style="text-align: center; color: #333; margin-bottom: 25px;">What Our Residents Say</h2>
+            <!-- AUTOMATED GLOBAL REVIEWS SECTION -->
+<section class="reviews-section" style="max-width: 600px; margin: 40px auto; padding: 25px; font-family: 'Segoe UI', Arial, sans-serif; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;">
+  <h2 style="text-align: center; color: #222; margin-bottom: 25px; font-size: 24px; font-weight: 600;">Guest Reviews</h2>
   
-  <div class="reviews-container" style="display: flex; flex-direction: column; gap: 20px;">
-    
-    <!-- Review 1 -->
-    <div class="review-card" style="background: #fdfdfd; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-      <div style="color: #ffcc00; font-size: 18px; margin-bottom: 5px;">★★★★★</div>
-      <p style="margin: 5px 0; color: #555; font-style: italic;">"Very clean rooms and peaceful environment for studying. The food feels just like home, and management is extremely supportive."</p>
-      <h4 style="margin: 5px 0 0 0; color: #333; text-align: right;">- Khushi Juneja (Student)</h4>
-    </div>
-
-    <!-- Review 2 -->
-    <div class="review-card" style="background: #fdfdfd; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-      <div style="color: #ffcc00; font-size: 18px; margin-bottom: 5px;">★★★★★</div>
-      <p style="margin: 5px 0; color: #555; font-style: italic;">"Great amenities and regular housekeeping. Best hostel experience with excellent security and high-speed internet."</p>
-      <h4 style="margin: 5px 0 0 0; color: #333; text-align: right;">- Akrishti Malviya (working professional)</h4>
-    </div>
-
-     <!-- Review 3 -->
-    <div class="review-card" style="background: #fdfdfd; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-      <div style="color: #ffcc00; font-size: 18px; margin-bottom: 5px;">★★★★★</div>
-      <p style="margin: 5px 0; color: #555; font-style: italic;">"Very affordable and aesthetic environment."</p>
-      <h4 style="margin: 5px 0 0 0; color: #333; text-align: right;">- Poorva Pariyani (student)</h4>
-    </div>
-
+  <!-- Live Reviews Container -->
+  <div id="live-reviews" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px;">
+    <p style="text-align: center; color: #777;">Loading live guest reviews...</p>
   </div>
 
-  <!-- Write a Review Button -->
-  <div style="text-align: center; margin-top: 25px;">
-    <button onclick="writeReview()" style="background-color: #333; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; transition: 0.3s;">
-      ✍️ Leave a Review
-    </button>
+  <!-- Link to Write a Review -->
+  <div style="border-top: 2px dashed #eee; padding-top: 25px; text-align: center;">
+    <h3 style="margin-top: 0; font-size: 16px; color: #333; margin-bottom: 15px;">Have you stayed with us?</h3>
+    <!-- ⚠️ PASTE YOUR GOOGLE FORM LINK BELOW -->
+    <a href="https://forms.gle/wyduzGTX7F5rYqCcA" target="_blank" style="display: inline-block; background: #000; color: #fff; text-decoration: none; padding: 12px 25px; font-size: 14px; font-weight: 600; border-radius: 6px; transition: 0.2s;">
+      ✍️ Write a Live Review
+    </a>
   </div>
 </section>
 
 <script>
-function writeReview() {
-  // Replace this with your actual hostel Gmail address
-  const myEmail = "kanhakutir115.com"; 
-  const subject = encodeURIComponent("New Website Review for Kanha Kutir");
-  const body = encodeURIComponent("Name:\nRating (1-5 Stars):\nYour Review:\n\nThank you for sharing your experience with us!");
+document.addEventListener("DOMContentLoaded", function() {
+  // ⚠️ PASTE YOUR COPIED GOOGLE SHEET ID HERE
+  const sheetId = "292059849";
   
-  window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
-}
+  // This securely grabs the data directly from your public Google Sheet
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+  fetch(url)
+    .then(res => res.text())
+    .then(data => {
+      // Clean up Google's specific JSON response format
+      const jsonString = data.substring(47, data.length - 2);
+      const json = JSON.parse(jsonString);
+      const rows = json.table.rows;
+      const container = document.getElementById("live-reviews");
+      
+      container.innerHTML = ""; // Clear loading text
+
+      if (rows.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #777;">No reviews yet. Be the first!</p>';
+        return;
+      }
+
+      // Loop through all spreadsheet rows and display them beautifully
+      rows.forEach(row => {
+        const name = row.c[1] ? row.c[1].v : "Anonymous";
+        const rating = row.c[2] ? row.c[2].v : "★★★★★";
+        const reviewText = row.c[3] ? row.c[3].v : "";
+
+        if(reviewText) {
+          const card = document.createElement('div');
+          card.style.cssText = "background: #fafafa; border: 1px solid #eef0f2; padding: 15px; border-radius: 8px;";
+          card.innerHTML = `
+            <div style="color: #ffcc00; font-size: 16px; margin-bottom: 6px;">${rating}</div>
+            <p style="margin: 0 0 8px 0; color: #444; font-style: italic; font-size: 14.5px;">"${reviewText}"</p>
+            <h4 style="margin: 0; color: #222; text-align: right; font-size: 13px; font-weight: 600;">- ${name}</h4>
+          `;
+          container.appendChild(card);
+        }
+      });
+    })
+    .catch(err => {
+      document.getElementById("live-reviews").innerHTML = '<p style="text-align: center; color: #777;">Unable to load reviews right now.</p>';
+    });
+});
 </script>
-<!-- REVIEWS SECTION END -->
 
            <!-- SECURE & ATTRACTIVE INQUIRY CARD -->
 <div class="contact-card" style="max-width: 500px; margin: 40px auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 1px solid #eaeaea;">

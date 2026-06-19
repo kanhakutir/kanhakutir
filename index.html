@@ -156,7 +156,7 @@
                 <p><i class="fa-solid fa-location-dot"></i> <strong>Address:</strong> 115 kanchan vihar colony near scheme no. 114 part 1 dewas naka, Indore, M.P.</p>
             </div>
 
-            <!-- AUTOMATED GLOBAL REVIEWS SECTION -->
+            <!-- AUTOMATED GLOBAL REVIEWS SECTION WITH VISUAL STARS -->
 <section class="reviews-section" style="max-width: 600px; margin: 40px auto; padding: 25px; font-family: 'Segoe UI', Arial, sans-serif; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;">
   <h2 style="text-align: center; color: #222; margin-bottom: 25px; font-size: 24px; font-weight: 600;">Guest Reviews</h2>
   
@@ -169,7 +169,7 @@
   <div style="border-top: 2px dashed #eee; padding-top: 25px; text-align: center;">
     <h3 style="margin-top: 0; font-size: 16px; color: #333; margin-bottom: 15px;">Have you stayed with us?</h3>
     <!-- ⚠️ PASTE YOUR GOOGLE FORM LINK BELOW -->
-    <a href="https://forms.gle/wyduzGTX7F5rYqCcA" target="_blank" style="display: inline-block; background: #000; color: #fff; text-decoration: none; padding: 12px 25px; font-size: 14px; font-weight: 600; border-radius: 6px; transition: 0.2s;">
+    <a href="https://forms.gle/Le4VyYQEeAtqLaxv8" target="_blank" style="display: inline-block; background: #000; color: #fff; text-decoration: none; padding: 12px 25px; font-size: 14px; font-weight: 600; border-radius: 6px; transition: 0.2s;">
       ✍️ Write a Live Review
     </a>
   </div>
@@ -180,13 +180,11 @@ document.addEventListener("DOMContentLoaded", function() {
   // ⚠️ PASTE YOUR COPIED GOOGLE SHEET ID HERE
   const sheetId = "1eTFPSW0HQftvvOp8wUvAg7fVfggWYzIsWgB83SUrQlk";
   
-  // This securely grabs the data directly from your public Google Sheet
   const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
   fetch(url)
     .then(res => res.text())
     .then(data => {
-      // Clean up Google's specific JSON response format
       const jsonString = data.substring(47, data.length - 2);
       const json = JSON.parse(jsonString);
       const rows = json.table.rows;
@@ -199,17 +197,29 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
 
-      // Loop through all spreadsheet rows and display them beautifully
       rows.forEach(row => {
         const name = row.c[1] ? row.c[1].v : "Anonymous";
-        const rating = row.c[2] ? row.c[2].v : "★★★★★";
+        const rawRating = row.c[2] ? row.c[2].v : "";
         const reviewText = row.c[3] ? row.c[3].v : "";
+
+        // SMART STAR CONVERTER: Converts text choices like "5 Stars" or "5" into actual gold stars
+        let starDisplay = "★★★★★"; // Default fallback
+        if (rawRating.includes("5")) {
+          starDisplay = "★★★★★";
+        } else if (rawRating.includes("4")) {
+          starDisplay = "★★★★☆";
+        } else if (rawRating.includes("3")) {
+          starDisplay = "★★★☆☆";
+        } else if (rawRating.includes("★")) {
+          // If the text already has stars in it, use it directly
+          starDisplay = rawRating;
+        }
 
         if(reviewText) {
           const card = document.createElement('div');
           card.style.cssText = "background: #fafafa; border: 1px solid #eef0f2; padding: 15px; border-radius: 8px;";
           card.innerHTML = `
-            <div style="color: #ffcc00; font-size: 16px; margin-bottom: 6px;">${rating}</div>
+            <div style="color: #ffcc00; font-size: 16px; margin-bottom: 6px; letter-spacing: 2px;">${starDisplay}</div>
             <p style="margin: 0 0 8px 0; color: #444; font-style: italic; font-size: 14.5px;">"${reviewText}"</p>
             <h4 style="margin: 0; color: #222; text-align: right; font-size: 13px; font-weight: 600;">- ${name}</h4>
           `;

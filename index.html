@@ -156,29 +156,84 @@
                 <p><i class="fa-solid fa-location-dot"></i> <strong>Address:</strong> 115 kanchan vihar colony near scheme no. 114 part 1 dewas naka, Indore, M.P.</p>
             </div>
 
-            <div class="contact-card">
-  <h3>Send a Booking Inquiry</h3>
+            <!-- REVIEWS SECTION START -->
+<section class="reviews-section" style="max-width: 600px; margin: 40px auto; padding: 20px; font-family: Arial, sans-serif;">
+  <h2 style="text-align: center; color: #333; margin-bottom: 25px;">What Our Residents Say</h2>
   
-  <!-- Notice we don't use action="mailto:" in the form tag anymore, which stops the browser warning -->
-  <form onsubmit="sendEmail(event)">
-    <label for="name">Your Name</label>
-    <input type="text" id="name" placeholder="Enter your full name" required>
+  <div class="reviews-container" style="display: flex; flex-direction: column; gap: 20px;">
+    
+    <!-- Review 1 -->
+    <div class="review-card" style="background: #fdfdfd; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+      <div style="color: #ffcc00; font-size: 18px; margin-bottom: 5px;">★★★★★</div>
+      <p style="margin: 5px 0; color: #555; font-style: italic;">"Very clean rooms and peaceful environment for studying. The food feels just like home, and management is extremely supportive."</p>
+      <h4 style="margin: 5px 0 0 0; color: #333; text-align: right;">- Rahul Sharma (Student)</h4>
+    </div>
 
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+    <!-- Review 2 -->
+    <div class="review-card" style="background: #fdfdfd; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+      <div style="color: #ffcc00; font-size: 18px; margin-bottom: 5px;">★★★★★</div>
+      <p style="margin: 5px 0; color: #555; font-style: italic;">"Great amenities and regular housekeeping. Best hostel experience with excellent security and high-speed internet."</p>
+      <h4 style="margin: 5px 0 0 0; color: #333; text-align: right;">- Amit Verma (Resident)</h4>
+    </div>
 
-    <label for="room-type">Sharing Preference</label>
-    <select id="room-type" required>
-      <option value="" disabled selected>Select sharing type...</option>
-      <option value="Single Sharing">Single Sharing</option>
-      <option value="Double Sharing">Double Sharing</option>
-      <option value="Triple Sharing">Triple Sharing</option>
-    </select>
+  </div>
 
-    <label for="date">Expected Move-in Date</label>
-    <input type="date" id="date" required>
+  <!-- Write a Review Button -->
+  <div style="text-align: center; margin-top: 25px;">
+    <button onclick="writeReview()" style="background-color: #333; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; transition: 0.3s;">
+      ✍️ Leave a Review
+    </button>
+  </div>
+</section>
 
-    <button type="submit" class="submit-btn">Send Inquiry via Email</button>
+<script>
+function writeReview() {
+  // Replace this with your actual hostel Gmail address
+  const myEmail = "yourhostelemail@gmail.com"; 
+  const subject = encodeURIComponent("New Website Review for Kanha Kutir");
+  const body = encodeURIComponent("Name:\nRating (1-5 Stars):\nYour Review:\n\nThank you for sharing your experience with us!");
+  
+  window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
+}
+</script>
+<!-- REVIEWS SECTION END -->
+
+           <!-- SECURE & ATTRACTIVE INQUIRY CARD -->
+<div class="contact-card" style="max-width: 500px; margin: 40px auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 1px solid #eaeaea;">
+  
+  <h3 style="text-align: center; margin-top: 0; margin-bottom: 25px; color: #222; font-size: 24px; font-weight: 600; letter-spacing: -0.5px;">Send a Booking Inquiry</h3>
+  
+  <form onsubmit="sendEmail(event)" style="display: flex; flex-direction: column; gap: 18px;">
+    
+    <div>
+      <label for="name" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; color: #555;">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your full name" required style="width: 100%; padding: 12px; border: 1px solid #cccccc; border-radius: 6px; font-size: 15px; box-sizing: border-box; transition: border 0.2s;">
+    </div>
+
+    <div>
+      <label for="phone" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; color: #555;">Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" required style="width: 100%; padding: 12px; border: 1px solid #cccccc; border-radius: 6px; font-size: 15px; box-sizing: border-box;">
+    </div>
+
+    <div>
+      <label for="room-type" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; color: #555;">Sharing Preference</label>
+      <select id="room-type" required style="width: 100%; padding: 12px; border: 1px solid #cccccc; border-radius: 6px; font-size: 15px; background-color: #fff; box-sizing: border-box; cursor: pointer;">
+        <option value="" disabled selected>Select sharing type...</option>
+        <option value="Single Sharing">Single Sharing</option>
+        <option value="Double Sharing">Double Sharing</option>
+        <option value="Triple Sharing">Triple Sharing</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="date" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 14px; color: #555;">Expected Move-in Date</label>
+      <input type="date" id="date" required style="width: 100%; padding: 12px; border: 1px solid #cccccc; border-radius: 6px; font-size: 15px; box-sizing: border-box; color: #555;">
+    </div>
+
+    <button type="submit" class="submit-btn" style="width: 100%; background-color: #000000; color: #ffffff; border: none; padding: 14px; font-size: 16px; font-weight: 600; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: background 0.2s;">
+      📩 Send Inquiry via Email
+    </button>
+    
   </form>
 </div>
 
@@ -186,19 +241,15 @@
 function sendEmail(event) {
   event.preventDefault();
   
-  // 1. Get the values the user typed in
   const name = document.getElementById('name').value;
   const phone = document.getElementById('phone').value;
   const roomType = document.getElementById('room-type').value;
   const date = document.getElementById('date').value;
   
-  // 2. YOUR EMAIL ADDRESS: Replace this with your actual hostel Gmail address
-  const myEmail = "kanhakutir115@gmail.com"; 
+  // ⚠️ CHANGE THIS TO YOUR ACTUAL EMAIL ADDRESS
+  const myEmail = "yourhostelemail@gmail.com"; 
   
-  // 3. Set a clean subject line
   const subject = encodeURIComponent(`New Booking Inquiry - Kanha Kutir (${name})`);
-  
-  // 4. Craft the body text of the email cleanly
   const body = encodeURIComponent(
     `Hello Kanha Kutir Management,\n\n` +
     `You have received a new booking inquiry from your website:\n\n` +
@@ -209,10 +260,10 @@ function sendEmail(event) {
     `Please respond to this guest as soon as possible.`
   );
   
-  // 5. Open the user's default email app securely
   window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
 }
 </script>
+
     <footer>
         <p>&copy; 2026 Kanha Kutir Girls Hostel, Indore. All Rights Reserved.</p>
     </footer>
